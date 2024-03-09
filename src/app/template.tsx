@@ -1,5 +1,8 @@
 'use client';
+import { initializeFirebaseApp } from '@/common/lib/firebase';
+import { AuthProvider } from '@/components/functional/AuthProvider';
 
+initializeFirebaseApp();
 export default function RootTemplate({ children }: { children: React.ReactNode }) {
-  return <>{children}</>;
+  return <AuthProvider>{children}</AuthProvider>;
 }
