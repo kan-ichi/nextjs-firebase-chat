@@ -10,12 +10,17 @@ export default function Login() {
   const [globalUserName, setGlobalUserName] = useGlobalUserName();
 
   return (
-    <div>
-      <div>
+    <div className="bg-slate-200 h-screen flex flex-col justify-center items-center">
+      <div className="bg-white p-8 rounded shadow-md w-96 flex flex-col items-center">
+        <h2 className="text-2xl font-semibold mb-6">ログインページ</h2>
+
         {/* お名前入力フォーム */}
-        <div>
-          <label>お名前:</label>
+        <div className="mb-4">
+          <label htmlFor="username" className="block text-gray-600 text-sm font-medium">
+            お名前
+          </label>
           <input
+            className="mt-1 p-2 w-full border rounded-md"
             type="text"
             name="userName"
             value={globalUserName}
@@ -25,7 +30,12 @@ export default function Login() {
 
         {/* ログインボタン */}
         <div>
-          <LoginAsAnonymousButton onClick={() => router.push('/chatroom')}>ログイン</LoginAsAnonymousButton>
+          <LoginAsAnonymousButton
+            className="bg-blue-500 text-white p-2 rounded-md w-full"
+            onClick={() => router.push('/chatroom')}
+          >
+            ログイン
+          </LoginAsAnonymousButton>
         </div>
       </div>
     </div>
