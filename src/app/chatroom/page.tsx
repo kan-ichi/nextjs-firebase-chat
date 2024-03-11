@@ -90,13 +90,15 @@ export default function ChatRoom() {
                 <div className={`flex ${record.userName === globalUserName ? 'justify-end' : 'justify-start'}`}>
                   <div className="flex flex-col items-end mr-3">
                     <label className="text-xs">
-                      {FormatDateUtils.yyyyMMddhhmmss(DbKeyUtils.extractDateFromDbKey(record.id))}
+                      {FormatDateUtils.mMDD(DbKeyUtils.extractDateFromDbKey(record.id)) +
+                        ' ' +
+                        FormatDateUtils.hHmm(DbKeyUtils.extractDateFromDbKey(record.id))}
                     </label>
                     <label className="text-xs">{record.userName}</label>
                   </div>
                   <div
-                    className={`p-2 max-w-md break-words rounded-xl ${
-                      record.userName === globalUserName ? 'bg-lime-400' : 'bg-white'
+                    className={`p-2 max-w-md break-words rounded-t-xl ${
+                      record.userName === globalUserName ? 'rounded-l-xl bg-lime-400' : 'rounded-r-xl bg-white'
                     }`}
                   >
                     {record.message}
