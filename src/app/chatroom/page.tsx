@@ -57,11 +57,11 @@ export default function ChatRoom() {
 
   return (
     <AuthGuard>
-      <div className="flex-1 flex flex-col justify-between h-screen px-10 pb-3">
+      <div className="flex h-screen flex-1 flex-col justify-between px-10 pb-3">
         {/* お名前＆ログアウト */}
-        <div className="flex items-center justify-between p-3 bg-slate-100">
+        <div className="flex items-center justify-between bg-slate-100 p-3">
           <div className="relative flex items-center space-x-4">
-            <span className="inline-block size-10 bg-gray-100 rounded-full overflow-hidden ml-2">
+            <span className="ml-2 inline-block size-10 overflow-hidden rounded-full bg-gray-100">
               <svg
                 className="size-full text-gray-700"
                 width="16"
@@ -84,7 +84,7 @@ export default function ChatRoom() {
             <span className="text-2xl text-gray-900">{globalUserName}</span>
           </div>
           <LogoutButton
-            className="rounded-md p-2 bg-purple-500 text-white hover:bg-purple-700 focus:outline-none"
+            className="rounded-md bg-purple-500 p-2 text-white hover:bg-purple-700 focus:outline-none"
             onClick={() => router.push('/login')}
           >
             ログアウト
@@ -97,7 +97,7 @@ export default function ChatRoom() {
             return (
               <div key={record.id} id={record.id} className="m-4">
                 <div className={`flex ${record.userName === globalUserName ? 'justify-end' : 'justify-start'}`}>
-                  <div className="flex flex-col items-end mr-3">
+                  <div className="mr-3 flex flex-col items-end">
                     <label className="text-xs">
                       {FormatDateUtils.mMDD(DbKeyUtils.extractDateFromDbKey(record.id)) +
                         ' ' +
@@ -106,16 +106,16 @@ export default function ChatRoom() {
                     <label className="text-xs">{record.userName}</label>
                   </div>
                   <div
-                    className={`p-2 max-w-md break-words rounded-t-xl ${
+                    className={`max-w-md break-words rounded-t-xl p-2 ${
                       record.userName === globalUserName ? 'rounded-l-xl bg-lime-400' : 'rounded-r-xl bg-white'
                     }`}
                   >
                     {record.message}
                   </div>
                   {record.userName === globalUserName ? (
-                    <button className="ml-1 relative group hover" onClick={() => handleDeleteButtonClick(record.id)}>
+                    <button className="hover group relative ml-1" onClick={() => handleDeleteButtonClick(record.id)}>
                       ❎
-                      <span className="absolute invisible w-10 rounded text-xs text-white py-1 bg-slate-600 -top-4 -left-3 group-hover:visible opacity-100">
+                      <span className="invisible absolute -left-3 -top-4 w-10 rounded bg-slate-600 py-1 text-xs text-white opacity-100 group-hover:visible">
                         削除
                       </span>
                     </button>
@@ -127,9 +127,9 @@ export default function ChatRoom() {
         </div>
 
         {/* メッセージ入力＆送信 */}
-        <div className="flex items-center p-3 bg-slate-100">
+        <div className="flex items-center bg-slate-100 p-3">
           <input
-            className="flex-1 p-2 border border-gray-300 rounded-l focus:outline-none focus:border-blue-500"
+            className="flex-1 rounded-l border border-gray-300 p-2 focus:border-blue-500 focus:outline-none"
             type="text"
             placeholder="メッセージ入力"
             value={message}
@@ -137,7 +137,7 @@ export default function ChatRoom() {
           />
           <div className="w-2" />
           <button
-            className="inline-flex p-2 rounded-r bg-blue-500 text-white hover:bg-blue-700"
+            className="inline-flex rounded-r bg-blue-500 p-2 text-white hover:bg-blue-700"
             name="sendButton"
             onClick={handleSendButtonClick}
           >
@@ -146,7 +146,7 @@ export default function ChatRoom() {
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 20 20"
               fill="currentColor"
-              className="h-6 w-6 ml-2 transform rotate-90"
+              className="ml-2 h-6 w-6 rotate-90 transform"
             >
               <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z"></path>
             </svg>
