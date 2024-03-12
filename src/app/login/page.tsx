@@ -12,20 +12,20 @@ export default function Login() {
   return (
     <div className="flex h-screen flex-col items-center justify-center bg-slate-200">
       <div className="flex w-96 flex-col items-center rounded bg-white p-8 shadow-md">
-        <h2 className="mb-6 text-2xl font-semibold">ログインページ</h2>
+        <h1 className="mb-4 text-2xl font-semibold">ログインページ</h1>
+        <p className="mb-4 max-w-full text-center text-xs">ユーザー登録せずに使えます。お気軽にお試しください</p>
 
         {/* お名前入力フォーム */}
         <div className="mb-4">
-          <label htmlFor="username" className="block text-sm font-medium text-gray-600">
+          <label className="block text-sm font-medium text-gray-600">
             お名前
+            <input
+              className="mt-1 w-full rounded-md border p-2"
+              type="text"
+              value={globalUserName}
+              onChange={(e) => setGlobalUserName(e.target.value)}
+            />
           </label>
-          <input
-            className="mt-1 w-full rounded-md border p-2"
-            type="text"
-            name="userName"
-            value={globalUserName}
-            onChange={(e) => setGlobalUserName(e.target.value)}
-          />
         </div>
 
         {/* ログインボタン */}
@@ -37,6 +37,11 @@ export default function Login() {
             ログイン
           </LoginAsAnonymousButton>
         </div>
+
+        <ul className="ml-1 mt-4 text-left text-xs text-gray-600">
+          <li>チャットメッセージは、10日後に削除されます</li>
+          <li>チャット画面でメッセージを個別に削除する事も可能です</li>
+        </ul>
       </div>
     </div>
   );

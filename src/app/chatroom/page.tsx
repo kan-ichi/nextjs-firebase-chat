@@ -57,7 +57,7 @@ export default function ChatRoom() {
 
   return (
     <AuthGuard>
-      <div className="flex h-screen flex-1 flex-col justify-between px-10 pb-3">
+      <div className="flex h-screen flex-1 flex-col justify-between px-0 sm:px-10">
         {/* お名前＆ログアウト */}
         <div className="flex items-center justify-between bg-slate-100 p-3">
           <div className="relative flex items-center space-x-4">
@@ -95,25 +95,32 @@ export default function ChatRoom() {
         <div className="grow overflow-y-auto bg-indigo-300" ref={messagesElementRef}>
           {chatRecords.map((record) => {
             return (
-              <div key={record.id} id={record.id} className="m-4">
+              <div key={record.id} id={record.id} className="m-3">
                 <div className={`flex ${record.userName === globalUserName ? 'justify-end' : 'justify-start'}`}>
-                  <div className="mr-3 flex flex-col items-end">
-                    <label className="text-xs">
-                      {FormatDateUtils.mMDD(DbKeyUtils.extractDateFromDbKey(record.id)) +
-                        ' ' +
-                        FormatDateUtils.hHmm(DbKeyUtils.extractDateFromDbKey(record.id))}
-                    </label>
-                    <label className="text-xs">{record.userName}</label>
+                  <div className="mr-2 flex flex-shrink-0 flex-col items-end">
+                    <div className="ml-auto text-xs">
+                      <span className="whitespace-nowrap">
+                        {FormatDateUtils.mMDD(DbKeyUtils.extractDateFromDbKey(record.id))}
+                      </span>
+                      <span className="whitespace-nowrap"> </span>
+                      <span className="whitespace-nowrap">
+                        {FormatDateUtils.hHmm(DbKeyUtils.extractDateFromDbKey(record.id))}
+                      </span>
+                    </div>
+                    <div className="ml-auto text-xs">{record.userName}</div>
                   </div>
                   <div
-                    className={`max-w-md break-words rounded-t-xl p-2 ${
+                    className={`max-w-md break-words rounded-t-xl p-2 text-sm sm:text-base ${
                       record.userName === globalUserName ? 'rounded-l-xl bg-lime-400' : 'rounded-r-xl bg-white'
                     }`}
                   >
                     {record.message}
                   </div>
                   {record.userName === globalUserName ? (
-                    <button className="hover group relative ml-1" onClick={() => handleDeleteButtonClick(record.id)}>
+                    <button
+                      className="hover group relative -mr-1 ml-1"
+                      onClick={() => handleDeleteButtonClick(record.id)}
+                    >
                       ❎
                       <span className="invisible absolute -left-3 -top-4 w-10 rounded bg-slate-600 py-1 text-xs text-white opacity-100 group-hover:visible">
                         削除
@@ -127,17 +134,16 @@ export default function ChatRoom() {
         </div>
 
         {/* メッセージ入力＆送信 */}
-        <div className="flex items-center bg-slate-100 p-3">
+        <div className="flex flex-auto items-center bg-slate-100 p-3">
           <input
-            className="flex-1 rounded-l border border-gray-300 p-2 focus:border-blue-500 focus:outline-none"
+            className="min-w-0 flex-grow rounded-l border border-gray-300 p-2 focus:border-blue-500 focus:outline-none"
             type="text"
             placeholder="メッセージ入力"
             value={message}
             onChange={(e) => setMessage(e.target.value)}
           />
-          <div className="w-2" />
           <button
-            className="inline-flex rounded-r bg-blue-500 p-2 text-white hover:bg-blue-700"
+            className="ml-2 inline-flex flex-shrink-0 rounded-r bg-blue-500 p-2 text-white hover:bg-blue-700"
             name="sendButton"
             onClick={handleSendButtonClick}
           >
