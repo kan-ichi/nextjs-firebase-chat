@@ -3,7 +3,7 @@
 
 Nextjs app using Firebase Authentication(with anonymous sign-in), Firebase Realtime Database.
 
-![screencapture-kanichi-nextjs-chat-web-app-chatroom](https://github.com/kan-ichi/nextjs-firebase-chat/assets/43694066/d69b7e4f-5288-4c1b-9c44-8e4d96fbd9b1)
+![screencapture-kanichi-nextjs-chat-web-app-chatroom](https://github.com/kan-ichi/nextjs-firebase-chat/assets/43694066/8d3aa6af-6fe7-4f31-8abe-bc3e05219dac)
 
 ## Getting Started
 
