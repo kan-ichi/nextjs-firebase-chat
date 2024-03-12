@@ -1,6 +1,7 @@
 'use client';
 import { useGlobalUserName } from '@/common/contexts/GlobalUserNameContext';
 import { useOnChildChatRecordAdded } from '@/common/hooks/useOnChildChatRecordAdded';
+import { useOnChildChatRecordRemoved } from '@/common/hooks/useOnChildChatRecordRemoved';
 import { useWindowCloseHandler } from '@/common/hooks/useWindowCloseHandler';
 import { Chat, ChatRecord } from '@/common/types/Chat';
 import { DbKeyUtils } from '@/common/utils/DbKeyUtils';
@@ -20,6 +21,7 @@ export default function ChatRoom() {
   const [message, setMessage] = useState('');
   const [chatRecords, setChatRecords] = useState<ChatRecord[]>([]);
   useOnChildChatRecordAdded(setChatRecords);
+  useOnChildChatRecordRemoved(setChatRecords);
 
   /**
    * チャットの追加を監視し、最後のメッセージまでスクロールします
@@ -44,6 +46,13 @@ export default function ChatRoom() {
       await FirebaseRealtimeDatabase.addChatToDb(chat);
       setMessage('');
     }
+  };
+
+  /**
+   * 削除ボタン押下時の処理
+   */
+  const handleDeleteButtonClick = async (id: string) => {
+    await FirebaseRealtimeDatabase.deleteChatRecordFromDb(id);
   };
 
   return (
@@ -103,6 +112,14 @@ export default function ChatRoom() {
                   >
                     {record.message}
                   </div>
+                  {record.userName === globalUserName ? (
+                    <button className="ml-1 relative group hover" onClick={() => handleDeleteButtonClick(record.id)}>
+                      ❎
+                      <span className="absolute invisible w-10 rounded text-xs text-white py-1 bg-slate-600 -top-4 -left-3 group-hover:visible opacity-100">
+                        削除
+                      </span>
+                    </button>
+                  ) : null}
                 </div>
               </div>
             );

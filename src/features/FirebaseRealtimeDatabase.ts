@@ -10,12 +10,21 @@ export module FirebaseRealtimeDatabase {
    * ChatをDBに追加し、追加したChatRecordを返します
    */
   export async function addChatToDb(chat: Chat): Promise<ChatRecord> {
-    const db = getDatabase();
-    const dbRef = ref(db, FIREBASE_REALTIME_DATABASE.COLLECTION_CHAT);
+    const dbRef = ref(getDatabase(), FIREBASE_REALTIME_DATABASE.COLLECTION_CHAT);
     const recordId = DbKeyUtils.generateDbKey();
     const newPostRef = child(dbRef, recordId);
     await set(newPostRef, chat);
     return { id: recordId, ...chat };
+  }
+
+  /**
+   * DBからChatRecordを削除します
+   */
+  export async function deleteChatRecordFromDb(id: string): Promise<string> {
+    const dbRef = ref(getDatabase(), FIREBASE_REALTIME_DATABASE.COLLECTION_CHAT);
+    const recordRef = child(dbRef, id);
+    await remove(recordRef);
+    return id;
   }
 
   /**
@@ -27,8 +36,7 @@ export module FirebaseRealtimeDatabase {
     deletionDateTime.setDate(deletionDateTime.getDate() - 10);
     const deletionDbKeyEndAt = `${DbKeyUtils.generateDbKeyDateTimePart(deletionDateTime)}${'z'.repeat(32)}`;
     // データベースから基準年月日以前のデータを取得し、削除
-    const db = getDatabase();
-    const dbRef = ref(db, FIREBASE_REALTIME_DATABASE.COLLECTION_CHAT);
+    const dbRef = ref(getDatabase(), FIREBASE_REALTIME_DATABASE.COLLECTION_CHAT);
     const oldRecordQuery = query(dbRef, orderByKey(), endAt(deletionDbKeyEndAt));
     const snapshot = await get(oldRecordQuery);
     snapshot.forEach((childSnapshot) => {
