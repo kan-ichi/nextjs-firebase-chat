@@ -22,6 +22,7 @@ export default function Login() {
             <input
               className="mt-1 w-full rounded-md border p-2"
               type="text"
+              placeholder="入力してください"
               value={globalUserName}
               onChange={(e) => setGlobalUserName(e.target.value)}
             />
@@ -31,8 +32,11 @@ export default function Login() {
         {/* ログインボタン */}
         <div>
           <LoginAsAnonymousButton
-            className="w-full rounded-md bg-blue-500 p-2 text-white"
+            className={`w-full rounded-md p-2 text-white ${
+              globalUserName.trim() === '' ? 'cursor-not-allowed bg-gray-300' : 'bg-blue-500'
+            }`}
             onClick={() => router.push('/chatroom')}
+            disabled={globalUserName.trim() === ''}
           >
             ログイン
           </LoginAsAnonymousButton>
