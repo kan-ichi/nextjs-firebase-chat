@@ -134,7 +134,7 @@ export default function ChatRoom() {
         </div>
 
         {/* メッセージ入力＆送信 */}
-        <div className="flex flex-auto items-center bg-slate-100 p-3">
+        <div className="flex flex-shrink-0 items-center bg-slate-100 p-3">
           <input
             className="min-w-0 flex-grow rounded-l border border-gray-300 p-2 focus:border-blue-500 focus:outline-none"
             type="text"
